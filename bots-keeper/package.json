@@ -1,0 +1,1 @@
+{"dependencies":{},"description":"Keeps 3 public bot lobbies alive around the clock on the HMH.Zerox game server.","engines":{"node":">=22"},"name":"hmh-zerox-bots-keeper","private":true,"scripts":{"start":"node keeper.mjs"},"type":"module","version":"1.0.0"}

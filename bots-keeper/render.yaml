@@ -1,0 +1,28 @@
+services:
+  # Second Render service for the HMH.Zerox bots keeper. This is a background
+  # worker (no HTTP port, no public URL) — it only makes outbound calls to the
+  # game server. Deploy it from the same repo/branch as the game server
+  # (hmh-zerox-render). The game server itself is defined in the repo-root
+  # render.yaml; this file is separate so the keeper can be created, stopped
+  # or deleted independently.
+  - type: worker
+    name: hmh-zerox-bots-keeper
+    runtime: node
+    rootDir: bots-keeper
+    buildCommand: npm install
+    startCommand: node keeper.mjs
+    plan: free
+    envVars:
+      - key: GAME_SERVER_URL
+        value: https://hmh-zerox.onrender.com
+      - key: TARGET_LOBBIES
+        value: "3"
+      - key: BOTS_PER_GAME
+        value: "15"
+      - key: POLL_INTERVAL_MS
+        value: "60000"
+      # The admin-bot key. sync: false means Render does NOT take it from this
+      # file — set it in the dashboard (same value as ADMIN_BOT_API_KEY on the
+      # game server). Never put the real key in this file or in git.
+      - key: ADMIN_BOT_API_KEY
+        sync: false
