@@ -3,7 +3,7 @@ services:
     name: hmh-zerox-game
     runtime: docker
     dockerfilePath: ./Dockerfile
-    plan: standard
+    plan: free
     region: frankfurt
     healthCheckPath: /api/health
     envVars:
