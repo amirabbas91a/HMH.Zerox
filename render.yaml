@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: hmh-zerox-game
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: standard
+    region: frankfurt
+    healthCheckPath: /api/health
+    envVars:
+      - key: GAME_ENV
+        value: dev
+      - key: NUM_WORKERS
+        value: 1
+      - key: INSTANCE_LETTER
+        value: a
+      - key: TURNSTILE_SITE_KEY
+        value: 1x00000000000000000000AA
+      - key: GIT_COMMIT
+        value: 5b75bd3ad8f66325a727f7bcec47680a0cc07e63
+      - key: API_KEY
+        generateValue: true

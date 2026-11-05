@@ -106,6 +106,11 @@ RUN <<'EOF' tee /usr/local/bin/start.sh
 # Generate the create-game nginx upstream from NUM_WORKERS before nginx starts.
 /usr/local/bin/generate-nginx-upstream.sh
 
+# HMH.Zerox self-host: hosts like Railway inject $PORT; nginx listens on
+# 80 by default, so point it at $PORT when one is given.
+PORT="${PORT:-80}"
+sed -i "s/listen 80 default_server;/listen $PORT default_server;/" /etc/nginx/conf.d/default.conf
+
 if [ "$DOMAIN" = openfront.dev ] && [ "$SUBDOMAIN" != main ]; then
     exec timeout 25h /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
 else

@@ -1,5 +1,5 @@
 {
-  "name": "openfront-client",
+  "name": "hmh-zerox-client",
   "engines": {
     "node": ">=24.15.0 <25",
     "npm": ">=12.1.0 <13"

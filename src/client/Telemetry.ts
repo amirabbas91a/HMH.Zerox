@@ -91,7 +91,7 @@ export function initTelemetry(): Promise<Faro | null> {
       const faro = initializeFaro({
         url,
         app: {
-          name: "openfront-client",
+          name: "hmh-zerox-client",
           version: ClientEnv.gitCommit(),
           environment: environmentName(env),
         },

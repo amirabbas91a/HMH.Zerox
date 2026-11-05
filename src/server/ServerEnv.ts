@@ -224,6 +224,11 @@ export class ServerEnv {
   static publicHost(): string | undefined {
     const explicit = process.env.GAME_HOST;
     if (explicit && explicit.length > 0) return explicit;
+    // HMH.Zerox self-host: Render injects RENDER_EXTERNAL_HOSTNAME (the
+    // service's public <name>.onrender.com host), so the server knows its
+    // own public host without a manual GAME_HOST.
+    const renderHost = process.env.RENDER_EXTERNAL_HOSTNAME;
+    if (renderHost && renderHost.length > 0) return renderHost;
     const subdomain = ServerEnv.subdomain();
     const domain = ServerEnv.gameDomain() ?? ServerEnv.domain();
     if (!subdomain || !domain) return undefined;

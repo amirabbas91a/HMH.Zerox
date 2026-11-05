@@ -335,6 +335,24 @@ app.get("/api/health", (_req, res) => {
   }
 });
 
+// HMH.Zerox self-host: answer the server list ourselves so a page whose
+// API base points at this server (API_DOMAIN) finds its one server without
+// the upstream API service. Public, CORS-open game-list data.
+app.get("/cluster.json", (_req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.json({
+    latest: ServerEnv.gitCommit(),
+    servers: {
+      [ServerEnv.instanceLetter()]: {
+        host: ServerEnv.publicHost() ?? ServerEnv.domain(),
+        numWorkers: ServerEnv.numWorkers(),
+        version: ServerEnv.gitCommit(),
+        state: "open",
+      },
+    },
+  });
+});
+
 // SPA fallback route
 app.get("/{*splat}", async function (_req, res) {
   try {
